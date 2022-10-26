@@ -8,10 +8,7 @@ import nl.smith.spring_data.repository.PersonDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.domain.Sort;
-
-import java.math.BigInteger;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -27,11 +24,13 @@ public class DemoApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         personDao.findAllByFirstName("Mark").forEach(System.out::println);
 
         adressDao.findAllByCity("Geldermalsen").forEach(System.out::println);
 
         personDao.findAll(Sort.by(Sort.Direction.ASC, "firstName", "surname")).forEach(System.out::println);
+
+        personDao.save(new Person("Frank", "Lamers", "FL1"));
     }
 }
